@@ -1,0 +1,44 @@
+server:
+  port: 8001
+  error:
+    include-stacktrace: never
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: crawler
+  r2dbc:
+    url: r2dbc:${DATABASE_URL}
+    username: ${DATABASE_USER}
+    password: ${DATABASE_PASS}
+    pool:
+      initial-size: 2
+      max-size: 20
+      max-idle-time: 5m
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    user: ${DATABASE_USER}
+    password: ${DATABASE_PASS}
+    url: jdbc:${DATABASE_URL}
+  rabbitmq:
+    host: localhost
+    username: guest
+    password: guest
+    port: 5672
+  search-engine:
+    common:
+      log:
+        sender: true
+      metrics:
+        sender: true
+      task:
+        route: crawler-task-queue
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        web: INFO
+#       r2dbc: DEBUG

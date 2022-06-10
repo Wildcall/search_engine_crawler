@@ -1,0 +1,82 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="07.04.2022-init" author="Nikolay Malygin">
+        <createTable tableName="_page">
+            <column name="id"                       type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="site_id"                  type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_user_id"              type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path"                     type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="code"                     type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content"                  type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_time"              type="datetime">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="_stat">
+            <column name="id"                       type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="site_id"                  type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="app_user_id"              type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start_time"               type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end_time"                 type="datetime">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fetch_pages"              type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="saved_pages"              type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="links_count"              type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="errors"                   type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createIndex tableName="_page" indexName="_page_app_user_id_index">
+            <column name="app_user_id"/>
+        </createIndex>
+
+        <createIndex tableName="_page" indexName="_page_site_id_index">
+            <column name="site_id"/>
+        </createIndex>
+
+        <createIndex tableName="_page" indexName="_page_path_index">
+            <column name="path"/>
+        </createIndex>
+
+        <createIndex tableName="_stat" indexName="_stat_app_user_id_index">
+            <column name="app_user_id"/>
+        </createIndex>
+
+        <createIndex tableName="_stat" indexName="_stat_site_id_index">
+            <column name="site_id"/>
+        </createIndex>
+    </changeSet>
+
+</databaseChangeLog>
